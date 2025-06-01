@@ -1,0 +1,95 @@
+{
+  "fail2ban_logs": {
+    "jail_name": "asterisk_jail",
+    "summary": {
+      "total_events": 100,
+      "unique_ips": 2,
+      "date_range": {
+        "start": "2025-05-31",
+        "end": "2025-06-01"
+      }
+    },
+    "events": [
+      {
+        "date": "2025-05-31",
+        "time": "02:59:27",
+        "milliseconds": 923,
+        "process_id": 771,
+        "level": "INFO",
+        "component": "fail2ban.jail",
+        "message": "Jail 'asterisk_jail' started",
+        "ip_address": null,
+        "event_type": "jail_start"
+      },
+      {
+        "date": "2025-05-31",
+        "ip_address": "192.168.1.16",
+        "detection_time": "2025-05-31 03:13:38",
+        "log_entries": [
+          {
+            "time": "03:13:58",
+            "milliseconds": 816,
+            "process_id": 771,
+            "level": "INFO",
+            "component": "fail2ban.filter",
+            "message": "[asterisk_jail] Found 192.168.1.16 - 2025-05-31 03:13:38"
+          }
+        ],
+        "total_detections": 49,
+        "event_type": "ip_detection"
+      },
+      {
+        "date": "2025-06-01",
+        "ip_address": "192.168.1.10",
+        "detection_time": "2025-06-01 02:47:52",
+        "log_entries": [
+          {
+            "time": "02:48:12",
+            "milliseconds": 277,
+            "process_id": 918,
+            "level": "INFO",
+            "component": "fail2ban.filter",
+            "message": "[asterisk_jail] Found 192.168.1.10 - 2025-06-01 02:47:52"
+          }
+        ],
+        "total_detections": 50,
+        "event_type": "ip_detection"
+      }
+    ],
+    "ip_statistics": [
+      {
+        "ip_address": "192.168.1.16",
+        "detection_count": 49,
+        "first_detection": "2025-05-31 03:13:38",
+        "last_log_entry": "2025-05-31 03:13:58",
+        "is_internal_ip": true,
+        "network_range": "192.168.1.0/24"
+      },
+      {
+        "ip_address": "192.168.1.10",
+        "detection_count": 50,
+        "first_detection": "2025-06-01 02:47:52",
+        "last_log_entry": "2025-06-01 02:48:12",
+        "is_internal_ip": true,
+        "network_range": "192.168.1.0/24"
+      }
+    ],
+    "analysis": {
+      "pattern": "Multiple repeated detections from internal network IPs",
+      "concern_level": "medium",
+      "notes": [
+        "Both IPs are from internal network (192.168.1.x)",
+        "High frequency of detections suggests possible brute force attempts",
+        "IP 192.168.1.16 had 49 detections on 2025-05-31",
+        "IP 192.168.1.10 had 50 detections on 2025-06-01",
+        "All detections target asterisk_jail (VoIP security)"
+      ],
+      "recommendations": [
+        "Investigate internal network devices at these IP addresses",
+        "Check Asterisk configuration for potential misconfigurations",
+        "Consider implementing additional authentication measures",
+        "Monitor for continued suspicious activity"
+      ]
+    }
+  }
+}
